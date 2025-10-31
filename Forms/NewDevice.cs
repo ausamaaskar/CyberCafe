@@ -35,6 +35,7 @@ namespace CyberCafe.Forms
                 data = new Device
                 {
                     IsAdmin = false,
+                    IsAuthenticated = false,
                     Name = DeviceNameField.Text
                 };
             }
