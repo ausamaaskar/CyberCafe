@@ -16,12 +16,12 @@ namespace CyberCafe.Forms
 {
     public partial class Booking : Form
     {
-        private FirestoreController _firestoreConnector;
+        private IFirestoreController _firestoreConnector;
         private readonly string _cafeName;
         private readonly string _bookingRoomsDocument;
         private DocumentSnapshot _documentSnapshot;
 
-        public Booking(FirestoreController firestoreConnector, string cafeName, string doc)
+        public Booking(IFirestoreController firestoreConnector, string cafeName, string doc)
         {
             InitializeComponent();
             _firestoreConnector = firestoreConnector;
@@ -30,6 +30,11 @@ namespace CyberCafe.Forms
         }
 
         public async void Booking_Load(object sender, EventArgs e)
+        {
+            await LoadAsync();
+        }
+
+        public async Task LoadAsync()
         {
             _documentSnapshot = await _firestoreConnector.GetDocumentAsync(_cafeName, _bookingRoomsDocument);
             if (_documentSnapshot != null)

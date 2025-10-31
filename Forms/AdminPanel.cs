@@ -154,7 +154,7 @@ namespace CyberCafe.Forms
         private void CreateRoom_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.BtnBackground);
-            OpenChildForm(new NewRoom(_cafeName, _bookingRoomsDocument));
+            OpenChildForm(new NewRoom(_firestoreConnector, _cafeName, _bookingRoomsDocument));
         }
 
         private void BookRoom_Click(object sender, EventArgs e)

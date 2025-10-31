@@ -49,4 +49,10 @@ public class FirestoreController : IFirestoreController
         await docRef.UpdateAsync(fieldName, fieldValue);
 
     }
+
+    public async Task UpdateSessionStatus(string collectionName, string documentId, string fieldName, string status)
+    {
+        // Simple implementation - updates session status field
+        await UpdateFieldAsync(collectionName, documentId, fieldName, status);
+    }
 }
