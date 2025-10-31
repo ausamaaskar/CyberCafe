@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberCafe", "CyberCafe.csproj", "{81F2DA5C-DED6-4F92-80DD-54A1B2DDFAEE}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NetCafeSetup", "NetCafeSetup\NetCafeSetup.vdproj", "{683EF784-02F3-431E-992F-C4C7776769B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81F2DA5C-DED6-4F92-80DD-54A1B2DDFAEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81F2DA5C-DED6-4F92-80DD-54A1B2DDFAEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81F2DA5C-DED6-4F92-80DD-54A1B2DDFAEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81F2DA5C-DED6-4F92-80DD-54A1B2DDFAEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{683EF784-02F3-431E-992F-C4C7776769B9}.Debug|Any CPU.ActiveCfg = Debug
+		{683EF784-02F3-431E-992F-C4C7776769B9}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B2D21CA-BCF9-46AB-9B1C-5A7F5321A02F}
+	EndGlobalSection
+EndGlobal
