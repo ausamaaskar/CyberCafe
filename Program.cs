@@ -13,29 +13,28 @@ namespace CyberCafe
         {
             ApplicationConfiguration.Initialize();
 
-            // Build configuration
+            // Build configuration for future use
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables()
                 .Build();
 
-            // Setup DI container
+            // Setup DI container for forms that use dependency injection
             var services = new ServiceCollection();
             ConfigureServices(services, configuration);
             var serviceProvider = services.BuildServiceProvider();
 
             // Determine which form to run based on configuration
-            var isAdmin = configuration["Admin"];
-            if (!string.IsNullOrEmpty(isAdmin) && Convert.ToBoolean(isAdmin))
+            // Using legacy ConfigurationManager for backward compatibility
+            var isAdminConsole = ConfigurationManager.AppSettings["Admin"];
+            if (Convert.ToBoolean(isAdminConsole))
             {
-                var adminPanel = serviceProvider.GetRequiredService<AdminPanel>();
-                Application.Run(adminPanel);
+                Application.Run(new AdminPanel());
             }
             else
             {
-                var clientApp = serviceProvider.GetRequiredService<ClientApplication>();
-                Application.Run(clientApp);
+                Application.Run(new ClientApplication());
             }
         }
 
@@ -52,9 +51,7 @@ namespace CyberCafe
                 return new FirestoreController(projectId, authPath);
             });
 
-            // Register forms as transient
-            services.AddTransient<AdminPanel>();
-            services.AddTransient<ClientApplication>();
+            // Register forms that use DI as transient
             services.AddTransient<Booking>();
             services.AddTransient<NewRoom>();
         }
