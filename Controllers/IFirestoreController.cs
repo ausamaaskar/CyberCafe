@@ -8,4 +8,5 @@ public interface IFirestoreController
     Task DeleteFieldAsync(string collectionName, string documentId, string fieldName);
     Task<DocumentSnapshot> GetDocumentAsync(string collectionName, string documentId);
     Task UpdateFieldAsync(string collectionName, string documentId, string fieldName, string fieldValue);
+    Task UpdateSessionStatus(string collectionName, string documentId, string fieldName, string status);
 }

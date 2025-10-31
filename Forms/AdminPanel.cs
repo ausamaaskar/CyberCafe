@@ -3,7 +3,7 @@ using FontAwesome.Sharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
+using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -18,32 +18,24 @@ namespace CyberCafe.Forms
         private IconButton currentBtn;
         private Panel leftBorderBtn;
         private Form currentChildForm;
-        private FirestoreController _firestoreConnector;
-        private readonly string _cafeName = ConfigurationManager.AppSettings["CafeName"];
-        private readonly string _projectId = ConfigurationManager.AppSettings["ProjectId"];
-        private readonly string _authenticationPath = ConfigurationManager.AppSettings["AuthenticationPath"];
-        private readonly string _availableDocument = ConfigurationManager.AppSettings["AvailableDocument"];
-        private readonly string _activatedDocument = ConfigurationManager.AppSettings["ActivatedDocument"];
-        private readonly string _bookingRoomsDocument = ConfigurationManager.AppSettings["BookingRooms"];
+        private IFirestoreController _firestoreConnector;
+        private readonly string _cafeName;
+        private readonly string _projectId;
+        private readonly string _authenticationPath;
+        private readonly string _availableDocument;
+        private readonly string _activatedDocument;
+        private readonly string _bookingRoomsDocument;
 
-        public AdminPanel()
+        public AdminPanel(IFirestoreController firestoreConnector, IConfiguration configuration)
         {
             InitializeComponent();
-            try
-            {
-                if (string.IsNullOrEmpty(_projectId) || string.IsNullOrEmpty(_authenticationPath))
-                {
-                    MessageBox.Show("Felaktiga inställningar!");
-                    return;
-                }
-
-                _firestoreConnector = new FirestoreController(_projectId, _authenticationPath);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Kunde inte ansluta till databasen : " + ex.Message);
-                this.Dispose();
-            }
+            _firestoreConnector = firestoreConnector;
+            _cafeName = configuration["CafeName"];
+            _projectId = configuration["ProjectId"];
+            _authenticationPath = configuration["AuthenticationPath"];
+            _availableDocument = configuration["AvailableDocument"];
+            _activatedDocument = configuration["ActivatedDocument"];
+            _bookingRoomsDocument = configuration["BookingRooms"];
         }
 
         private struct RGBColors
@@ -154,7 +146,7 @@ namespace CyberCafe.Forms
         private void CreateRoom_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.BtnBackground);
-            OpenChildForm(new NewRoom(_cafeName, _bookingRoomsDocument));
+            OpenChildForm(new NewRoom(_firestoreConnector, _cafeName, _bookingRoomsDocument));
         }
 
         private void BookRoom_Click(object sender, EventArgs e)

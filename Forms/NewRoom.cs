@@ -4,14 +4,14 @@ namespace CyberCafe.Forms
 {
     public partial class NewRoom : Form
     {
-        private FirestoreController _firestoreConnector;
+        private IFirestoreController _firestoreConnector;
         private readonly string _cafeName;
         private readonly string _bookingRoomsDoc;
 
-        public NewRoom(string cafeName, string bookingRoomsDoc)
+        public NewRoom(IFirestoreController firestoreConnector, string cafeName, string bookingRoomsDoc)
         {
             InitializeComponent();
-            _firestoreConnector = new FirestoreController("netcafeaskar", "");
+            _firestoreConnector = firestoreConnector;
             _cafeName = cafeName;
             _bookingRoomsDoc = bookingRoomsDoc;
         }

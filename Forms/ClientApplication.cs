@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System.Configuration;
+using Microsoft.Extensions.Configuration;
 using Timer = System.Windows.Forms.Timer;
 
 namespace CyberCafe.Forms
@@ -7,22 +7,27 @@ namespace CyberCafe.Forms
 
     public partial class ClientApplication : Form
     {
-        private FirestoreController _firestoreConnector;
-        private readonly string _cafeName = ConfigurationManager.AppSettings["CafeName"];
-        private readonly string _projectId = ConfigurationManager.AppSettings["ProjectId"];
-        private readonly string _authenticationPath = ConfigurationManager.AppSettings["AuthenticationPath"];
-        private readonly string _activatedDocument = ConfigurationManager.AppSettings["ActivatedDocument"];
-        private readonly string _deviceName = ConfigurationManager.AppSettings["DeviceName"];
+        private IFirestoreController _firestoreConnector;
+        private readonly string _cafeName;
+        private readonly string _projectId;
+        private readonly string _authenticationPath;
+        private readonly string _activatedDocument;
+        private readonly string _deviceName;
 
         private const int WM_CLOSE = 0x0010;
         private const int WM_DESTROY = 0x0002;
         private const int WM_QUIT = 0x0012;
         private readonly Timer _timer;
 
-        public ClientApplication()
+        public ClientApplication(IFirestoreController firestoreConnector, IConfiguration configuration)
         {
             InitializeComponent();
-            _firestoreConnector = new FirestoreController(_projectId, _authenticationPath);
+            _firestoreConnector = firestoreConnector;
+            _cafeName = configuration["CafeName"];
+            _projectId = configuration["ProjectId"];
+            _authenticationPath = configuration["AuthenticationPath"];
+            _activatedDocument = configuration["ActivatedDocument"];
+            _deviceName = configuration["DeviceName"];
             this.TopMost = true;
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
